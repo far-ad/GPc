@@ -92,6 +92,7 @@ extern "C" void dscal_(const int& n,
 		      double* y, 
 		      const int& incy);
 
+namespace lapack_daxpy_ {
 // Perform y := ax + y
 extern "C" void daxpy_(const int& n, 
 		       const double& alpha, 
@@ -99,6 +100,8 @@ extern "C" void daxpy_(const int& n,
 		       const int& incx, 
 		       double *y, 
 		       const int& incy);
+};
+
 // Return xTy
 extern "C" double ddot_(const int& n,
 			const double *x,

@@ -426,7 +426,7 @@ public:
   {
     DIMENSIONMATCH(x.ncols==ncols);
     DIMENSIONMATCH(x.nrows==nrows);
-    daxpy_(ncols*nrows, alpha, x.vals, 1, vals, 1);
+    lapack_daxpy_::daxpy_(ncols*nrows, alpha, x.vals, 1, vals, 1);
   }
   // Level 1 BLAS axpy y(i, :) := alpha*x(k, :) + y(i, :);
   void axpyRowRow(unsigned int i, const CMatrix& x, unsigned int k, double alpha)
@@ -434,7 +434,7 @@ public:
     BOUNDCHECK(i<nrows);
     BOUNDCHECK(k<x.nrows);
     DIMENSIONMATCH(x.ncols==ncols);
-    daxpy_(ncols, alpha, x.vals+k, x.nrows, vals+i, nrows);
+    lapack_daxpy_::daxpy_(ncols, alpha, x.vals+k, x.nrows, vals+i, nrows);
   }
   // Level 1 BLAS axpy (i, :) := alpha*x(:, j)' + y(i, :);
   void axpyRowCol(unsigned int i, const CMatrix& x, unsigned int j, double alpha)
@@ -442,7 +442,7 @@ public:
     BOUNDCHECK(i<nrows);
     BOUNDCHECK(j<x.ncols);
     DIMENSIONMATCH(x.nrows==ncols);
-    daxpy_(ncols, alpha, x.vals+j*x.nrows, 1, vals+i, nrows);
+    lapack_daxpy_::daxpy_(ncols, alpha, x.vals+j*x.nrows, 1, vals+i, nrows);
   }
   // Level 1 BLAS axpy (:, j) := alpha*x(:, k) + y(:, j);
   void axpyColCol(unsigned int j, const CMatrix& x, unsigned int k, double alpha)
@@ -450,7 +450,7 @@ public:
     BOUNDCHECK(j<ncols);
     BOUNDCHECK(k<x.ncols);
     DIMENSIONMATCH(x.nrows==nrows);
-    daxpy_(nrows, alpha, x.vals+k*x.nrows, 1, vals+j*nrows, 1);
+    lapack_daxpy_::daxpy_(nrows, alpha, x.vals+k*x.nrows, 1, vals+j*nrows, 1);
   }
   // Level 1 BLAS axpy (:, j) = alpha*x(i, :)' + y(:, j);
   void axpyColRow(unsigned int j, const CMatrix& x, unsigned int i, double alpha)
@@ -458,7 +458,7 @@ public:
     BOUNDCHECK(j<ncols);
     BOUNDCHECK(i<x.nrows);
     DIMENSIONMATCH(x.ncols==nrows);
-    daxpy_(nrows, alpha, x.vals+i, x.nrows, vals+j*nrows, 1);
+    lapack_daxpy_::daxpy_(nrows, alpha, x.vals+i, x.nrows, vals+j*nrows, 1);
   }
   // Level 1 BLAS axpy diag(Y) = diag(Y) + alpha*x(i, :)'
   void axpyDiagRow(const CMatrix& x, unsigned int i, double alpha)
@@ -466,7 +466,7 @@ public:
     MATRIXPROPERTIES(isSquare());
     BOUNDCHECK(i<x.nrows);
     DIMENSIONMATCH(x.ncols==nrows);
-    daxpy_(nrows, alpha, x.vals+i, x.nrows, vals, nrows+1);
+    lapack_daxpy_::daxpy_(nrows, alpha, x.vals+i, x.nrows, vals, nrows+1);
   }
   // Level 1 BLAS axpy diag(Y) = diag(Y) + alpha*x(i, :)'
   void axpyDiagCol(const CMatrix& x, unsigned int j, double alpha)
@@ -474,7 +474,7 @@ public:
     MATRIXPROPERTIES(isSquare());
     BOUNDCHECK(j<x.ncols);
     DIMENSIONMATCH(x.nrows==nrows);
-    daxpy_(nrows, alpha, x.vals+j*x.nrows, 1, vals, nrows+1);
+    lapack_daxpy_::daxpy_(nrows, alpha, x.vals+j*x.nrows, 1, vals, nrows+1);
   }
   // Level 2 BLAS Rank 1 update: ger, A = alpha*x*y' + A; 
   void ger(const CMatrix& x, const CMatrix& y, double alpha)
